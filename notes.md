@@ -29,7 +29,6 @@ findNemo(nemo);
 findNemo(newArr);
 ```
 
-
 ### O(n) - Linear Time
 
 One calculation per each element looped over. Or linear time. So if there is only on element in an array, or if there are 100,000 items in an array. A function with a for loop that performs one calculation per element will have the same Big O notation of O(n) regardless of the size of the array
@@ -39,7 +38,7 @@ One calculation per each element looped over. Or linear time. So if there is onl
 How ever many operations occurs we increase the number in brackets. With Big O we tend to ignore the nitty gritty details and round. So a function like below, even with a large input of 10000, will only perform 2 calculations and always have a Big O of O(2). We still just round down to O(1). Constant time is one of the most predictable, because no matter how many elements we have the same number of operations is performed. Therefore it is one of the most efficient of the Big O notations.
 
 ```js
-const newArr = Array(10000).fill({}); 
+const newArr = Array(10000).fill({});
 
 function constantTime(arr) {
   console.log(arr[0]); // O(1)
@@ -63,94 +62,102 @@ for (let i = 0; i < boxes.length) {
 }
 ```
 
-
 ### Simplyfying Big O
 
 ```js
 function anotherFunChallenge(input) {
-    let a = 5; // O(1)
-    let b = 10; // O(1)
-    let c = 50; // O(1)
-    for (let i = 0; i < input; i++) { // O(n)
-      let x = i + 1; // O(n)
-      let y = i + 2; // O(n)
-      let z = i + 3; // O(n)
-
-    }
-    for (let j = 0; j < input; j++) { // O(n)
-      let p = j * 2; // O(n)
-      let q = j * 2; // O(n) 
-    }
-    let whoAmI = "I don't know"; // O(1)
+  let a = 5; // O(1)
+  let b = 10; // O(1)
+  let c = 50; // O(1)
+  for (let i = 0; i < input; i++) {
+    // O(n)
+    let x = i + 1; // O(n)
+    let y = i + 2; // O(n)
+    let z = i + 3; // O(n)
   }
-  // Big O = 4 + 7n = O(n)
+  for (let j = 0; j < input; j++) {
+    // O(n)
+    let p = j * 2; // O(n)
+    let q = j * 2; // O(n)
+  }
+  let whoAmI = "I don't know"; // O(1)
+}
+// Big O = 4 + 7n = O(n)
 ```
 
 With Big O we simplyfy the calculation to give more of a generalization about the efficiency of the program/function.
 
-
-
-
 ### 4 Rules
+
 1. Worst Case
 2. Remove Constants
 3. Different Terms For Input
 4. Drop Non Dominants
 
 ### Worst Case
-- We always use the worst case calculations Ex.) In a loop that is searching we ***MAY*** have to go unti lthe very end at worst case no matter what so it is O(n). It doesn't matter that sometimes we may find what we need earlier in the loop before the end
+
+- We always use the worst case calculations Ex.) In a loop that is searching we **_MAY_** have to go unti lthe very end at worst case no matter what so it is O(n). It doesn't matter that sometimes we may find what we need earlier in the loop before the end
 
 ### Remove Constants
+
 - Big O = 4 + 7n = O(n) We remove all the numbers
 
 ### Remove Terms For Inputs
-- If you have multiple inputs Ex.) 2 inputs and a loop to loop over each input. The time it would take for each loop would depend on its corresponding input. So you would end up with O(a + b). If you have nested loops over different inputs its not quadractic time but rather 0(a * b);
+
+- If you have multiple inputs Ex.) 2 inputs and a loop to loop over each input. The time it would take for each loop would depend on its corresponding input. So you would end up with O(a + b). If you have nested loops over different inputs its not quadractic time but rather 0(a \* b);
 
 ### Drop Non Dominants
+
 - If we have a function that has only one input with a loop over the inputs and then a separate nested loop so we have a loop that is O(n) and one that is O(n^2). The Big O would be O(n^2) because the Big O of the first loop doesn't really matter because we want worst case and drop the non dominant terms.
 
-
 ### Big O Cheat Sheet: -Big Os-
-O(1) Constant
-- no loops
-O(log N) Logarithmic
-- usually searching algorithms have log n if they are sorted (Binary Search) O(n) 
-Linear 
-- for loops, while loops through n items
-O(n log(n)) Log Linear
-- usually sorting operations
-O(n^2) Quadratic
-- every element in a collection needs to be compared to ever other element. Two nested loops
-O(2^n) Exponential
-- recursive algorithms that solves a problem of size N
-O(n!) Factorial
-- you are adding a loop for every element
-Iterating through half a collection is still O(n) Two separate collections: O(a * b)
 
-What can cause time in a function? 
-- Operations (+, -, *, /) 
+O(1) Constant
+
+- no loops
+  O(log N) Logarithmic
+- usually searching algorithms have log n if they are sorted (Binary Search) O(n)
+  Linear
+- for loops, while loops through n items
+  O(n log(n)) Log Linear
+- usually sorting operations
+  O(n^2) Quadratic
+- every element in a collection needs to be compared to ever other element. Two nested loops
+  O(2^n) Exponential
+- recursive algorithms that solves a problem of size N
+  O(n!) Factorial
+- you are adding a loop for every element
+  Iterating through half a collection is still O(n) Two separate collections: O(a \* b)
+
+What can cause time in a function?
+
+- Operations (+, -, \*, /)
 - Comparisons (<, >, ==)
 - Looping (for, while)
 - Outside Function call (function())
 
 Rule Book
+
 1. Always worst Case
 2. Remove Constants
-3. Different inputs should have different variables. O(a+b). A and B arrays nested would be O(a*b)
- - + for steps in order
- - * for nested steps
+3. Different inputs should have different variables. O(a+b). A and B arrays nested would be O(a\*b)
+
+- - for steps in order
+- - for nested steps
+
 4. Drop Non-dominant terms
 
 What causes Space complexity?
-- Variables
-- Data Structures 
-- Function Call 
-- Allocations
 
+- Variables
+- Data Structures
+- Function Call
+- Allocations
 
 Big O can relate to time complexity **OR** space complexity.
 
 Space complexity of O(n) as it's taking up O(n) memory with adding to the array.
+
 ```js
 function test(n) {
   const hiArr = [];
@@ -163,16 +170,62 @@ function test(n) {
 
 Premature optimization is the root of all evil. We need to pay attention if we need to optimize for runtime, or space and even readability and balance with judgment between them all.
 
-
 ## Solving Interview Problems
 
 ### What Companies Look For
 
-1. Analytic Skills
-2. Coding Skills
-3. Technical Skill
-4. Communication Skills
+- Analytic Skills
+- Coding Skills
+- Technical Skill
+- Communication Skills
 
+#### How To Interview
+
+1. When the interviewer says the question, write down the key points at the top (i.e. sorted
+   array). Make sure you have all the details. Show how organized you are.
+2. Make sure you double check: What are the inputs? What are the outputs?
+3. What is the most important value of the problem? Do you have time, and space and memory,
+   etc.. What is the main goal?
+4. Don't be annoying and ask too many questions.
+5. Start with the naive/brute force approach. First thing that comes into mind. It shows that
+   you’re able to think well and critically (you don't need to write this code, just speak about it).
+6. Tell them why this approach is not the best (i.e. O(n^2) or higher, not readable, etc...)
+7. Walk through your approach, comment things and see where you may be able to break things.
+   Any repetition, bottlenecks like O(N^2), or unnecessary work? Did you use all the information
+   the interviewer gave you? Bottleneck is the part of the code with the biggest Big O. Focus on
+   that. Sometimes this occurs with repeated work as well.
+8. Before you start coding, walk through your code and write down the steps you are going to
+   follow.
+9. Modularize your code from the very beginning. Break up your code into beautiful small pieces
+   and add just comments if you need to.
+10. Start actually writing your code now. Keep in mind that the more you prepare and understand
+    what you need to code, the better the whiteboard will go. So never start a whiteboard
+    interview not being sure of how things are going to work out. That is a recipe for disaster.
+    Keep in mind: A lot of interviews ask questions that you won’t be able to fully answer on time.
+    So think: What can I show in order to show that I can do this and I am better than other
+    coders. Break things up in Functions (if you can’t remember a method, just make up a function
+    and you will at least have it there. Write something, and start with the easy part.
+11. Think about error checks and how you can break this code. Never make assumptions about the
+    input. Assume people are trying to break your code and that Darth Vader is using your
+    function. How will you safeguard it? Always check for false inputs that you don’t want. Here is
+    a trick: Comment in the code, the checks that you want to do… write the function, then tell the
+    interviewer that you would write tests now to make your function fail (but you won't need to
+    actually write the tests).
+12. Don’t use bad/confusing names like i and j. Write code that reads well.
+13. Test your code: Check for no params, 0, undefined, null, massive arrays, async code, etc… Ask
+    the interviewer if we can make assumption about the code. Can you make the answer return
+    an error? Poke holes into your solution. Are you repeating yourself?
+14. Finally talk to the interviewer where you would improve the code. Does it work? Are there
+    different approaches? Is it readable? What would you google to improve? How can
+    performance be improved? Possibly: Ask the interviewer what was the most interesting
+    solution you have seen to this problem
+15. If your interviewer is happy with the solution, the interview usually ends here. It is also
+    common that the interviewer asks you extension questions, such as how you would handle the
+    problem if the whole input is too large to fit into memory, or if the input arrives as a stream.
+    This is a common follow-up question at Google, where they care a lot about scale. The answer
+    is usually a divide-and-conquer approach — perform distributed processing of the data and only
+    read certain chunks of the input from disk into memory, write the output back to disk and
+    combine them later.
 
 ```js
 // Given 2 arrays, create a function that let's a user know (true/false) whether these two arrays contain any common items
@@ -189,54 +242,54 @@ Premature optimization is the root of all evil. We need to pay attention if we n
 // return true or false
 
 function containsCommonItem(arr1, arr2) {
-    for (let i=0; i < arr1.length; i++) {
-      for ( let j=0; j < arr2.length; j++) {
-        if(arr1[i] === arr2[j]) {
-          return true;
-        }
-      }
-    }
-    return false
-  }
-  
-  //O(a*b)
-  //O(1) - Space Complexity
-  
-  const array1 = ['a', 'b', 'c', 'x'];
-  const array2 = ['z', 'y', 'a'];
-  
-  function containsCommonItem2(arr1, arr2) {
-    // loop through first array and create object where properties === items in the array
-    // can we assume always 2 params?
-  
-    let map = {};
-    for (let i=0; i < arr1.length; i++) {
-      if(!map[arr1[i]]) {
-        const item = arr1[i];
-        map[item] = true;
-      }
-    }
-    // loop through second array and check if item in second array exists on created object. 
-    for (let j=0; j < arr2.length; j++) {
-      if (map[arr2[j]]) {
+  for (let i = 0; i < arr1.length; i++) {
+    for (let j = 0; j < arr2.length; j++) {
+      if (arr1[i] === arr2[j]) {
         return true;
       }
     }
-    return false
   }
-  
-  //O(a + b) Time Complexity
-  //O(a) Space Complexity
-  
-  // containsCommonItem2(array1, array2)
-  
-  function containsCommonItem3(arr1, arr2) {
-    return arr1.some(item => arr2.includes(item))
+  return false;
+}
+
+//O(a*b)
+//O(1) - Space Complexity
+
+const array1 = ["a", "b", "c", "x"];
+const array2 = ["z", "y", "a"];
+
+function containsCommonItem2(arr1, arr2) {
+  // loop through first array and create object where properties === items in the array
+  // can we assume always 2 params?
+
+  let map = {};
+  for (let i = 0; i < arr1.length; i++) {
+    if (!map[arr1[i]]) {
+      const item = arr1[i];
+      map[item] = true;
+    }
   }
-  
-  containsCommonItem(array1, array2)
-  containsCommonItem2(array1, array2)
-  containsCommonItem3(array1, array2)
+  // loop through second array and check if item in second array exists on created object.
+  for (let j = 0; j < arr2.length; j++) {
+    if (map[arr2[j]]) {
+      return true;
+    }
+  }
+  return false;
+}
+
+//O(a + b) Time Complexity
+//O(a) Space Complexity
+
+// containsCommonItem2(array1, array2)
+
+function containsCommonItem3(arr1, arr2) {
+  return arr1.some((item) => arr2.includes(item));
+}
+
+containsCommonItem(array1, array2);
+containsCommonItem2(array1, array2);
+containsCommonItem3(array1, array2);
 ```
 
 Being able to to ask questions and come up with an initial approach with steps explained is crucial. Interviewers aren't just looking for if you can solve the problem or if you have the correct answer off the start. They want you to be able to walk through your thought process at each step, even before you start typing. What questions will you ask before hand? Talk about the downsides to an initial approach. Is a second or first approach better in different use cases (Space vs Time vs Readability vs Time Constraints)?
@@ -246,11 +299,13 @@ Being able to to ask questions and come up with an initial approach with steps e
 ### Intro
 
 Data Structures:
+
 - Collections of Values
 - Also have a concept of Readability, Memory and Speed
 - Some come pre-built into languages ex.) Maps, Arrays
 
 Algorithms:
+
 - Steps take to manipulate data
 
 Combined together these are used to write programs ad solve problems. We want to write proper data structures as to optimize for our computer to be able to run our programs.
@@ -258,6 +313,7 @@ Combined together these are used to write programs ad solve problems. We want to
 How computers store data:
 
 1. RAM
+
 - To run code computers need to keep track of variables, numbers, string, object etc. This is stored in memory orRAM (Random Access Memory)
 - Temporary (Disappears when computer is shut off)
 - Fast
@@ -266,37 +322,44 @@ How computers store data:
 - Ex.) In a 32 bit system a given variable will take up 32 bits, or 4 bytes
 
 2. Storage
+
 - Store things like video, music or documents
 - Disk, flash or solid state drives
 - Persistant memory (Still there when the computer is turned back on)
-- Slow 
+- Slow
 
 3. CPU
+
 - What performs all the calculations inside the computer
 - Needs access to RAM & Storage
 - Connected to a memory controller which reads and writes to memory
-- Has a small caches for recently accessed memory 
+- Has a small caches for recently accessed memory
 
 We can perform different operations on different data structures. Different structures are faster at these different operations than others.
 
 1. Insertion
+
 - Add new item to a collection in a specific place
 
 2. Deletion
+
 - Remove new item to a collection in a specific place
 
 3. Traversal
+
 - Access an item exactly once and perform an operation (Go to)
 
 4. Searching
+
 - Find location if it exists in a collection
 
 5. Sorting
+
 - Arrange items of a collection in a specific order
 
 6. Access
-- How we access the data in the computer
 
+- How we access the data in the computer
 
 ### Arrays
 
@@ -305,11 +368,10 @@ We can perform different operations on different data structures. Different stru
 - Organize items sequentially
 - Stored in memory contiguously, each item one after the other
 
-
 ```js
-const strings = ['a', 'b', 'c', 'd'];
+const strings = ["a", "b", "c", "d"];
 
-// Simplified version of looking at things 
+// Simplified version of looking at things
 // 32 bit system
 // 4 items
 // 4 bytes each
@@ -322,3 +384,150 @@ const strings = ['a', 'b', 'c', 'd'];
 ```
 
 #### Static vs Dynamic Arrays
+
+- Static array have fixed length
+- Dynamic arrays expand as you add more elements
+
+#### Implementing Arrays
+
+```js
+class Arr {
+  constructor() {
+    this.length = 0;
+    this.data = {};
+  }
+
+  get(index) {
+    return this.data[index];
+  }
+
+  push(item) {
+    this.data[this.length] = item;
+    this.length++;
+    return this.length;
+  }
+
+  pop() {
+    const lastItem = this.data[this.length - 1];
+    delete this.data[this.length - 1];
+    this.length--;
+    return lastItem;
+  }
+
+  delete(index) {
+    const item = this.data[index];
+    this.shiftItems(index);
+    return item;
+  }
+
+  shiftItems(index) {
+    for (let i = index; i < this.length - 1; i++) {
+      this.data[i] = this.data[i + 1];
+    }
+    delete this.data[this.length - 1];
+    this.length--;
+  }
+}
+
+// {
+//   "length": 3,
+//   "data": {
+//       "0": "hi",
+//       "1": "!!",
+//       "2": "sure"
+//       "3": "check"
+//       "4": "yup"
+//       "5": "yup"
+//   }
+// }
+
+const testArr = new Arr();
+
+testArr.push("hi");
+testArr.push("everyone");
+testArr.push("!!");
+testArr.push("sure");
+testArr.push("check");
+testArr.push("yup");
+
+testArr.delete(1);
+
+// console.log(testArr.get(1));
+// everyone
+
+// const removedItem = testArr.pop();
+// console.log(removedItem);
+// yup
+
+console.log(testArr);
+```
+
+Strings are just arrays of characters, so when manipulating them, especially in JS it is very helpful to turn them into array (turning many data types into array is helpful for the amount of methods available on arrays).
+
+```js
+// Reverse - my implementation
+const str1 = "Hello my name is Cam Remesz";
+
+const str2 = "!!gnikrow yletinifed si gniht siht puY";
+
+function reverse(string) {
+  const strArr = string.split("");
+  const reversed = [];
+
+  for (let i = strArr.length - 1; i >= 0; i--) {
+    reversed.push(strArr[i]);
+  }
+
+  return reversed.join("");
+}
+
+const check1 = reverse(str1);
+const check2 = reverse(str2);
+
+console.log(check1);
+// zsemeR maC si eman ym olleH
+console.log(check2);
+// Yup this thing is definitely working!!
+```
+
+Sorting Arrays
+
+My attempt. I believe this is bubble sort.
+
+```js
+const arr1 = [12, 355, 26, 13];
+const arr2 = [53, 27, 87, 45, 112];
+
+const sorted1 = arr1.sort((a, b) => a - b);
+const sorted2 = arr2.sort((a, b) => a - b);
+
+const merged = [...sorted1, ...sorted2];
+
+console.log(merged);
+
+for (let i = 0; i <= merged.length + 1; i++) {
+  if (merged[i] > merged[i + 1]) {
+    const temp = merged[i];
+    merged[i] = merged[i + 1];
+    merged[i + 1] = temp;
+  }
+}
+
+console.log(merged);
+```
+
+#### Review
+
+So from what we've learned we can determine what Arrays might be good/bad for
+
+Good:
+
+- Lookup
+- Push/Pop
+- Ordered
+
+Bad:
+
+- Insert
+- Delete
+- Sometimes a fixed size (Static Arrays)
