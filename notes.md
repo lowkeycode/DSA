@@ -531,3 +531,88 @@ Bad:
 - Insert
 - Delete
 - Sometimes a fixed size (Static Arrays)
+
+### Hash Tables
+
+#### Basics
+
+Hash tables are collections of key value pairs. They take the key and run it through a hash function to get a unique memory address for any given string.
+
+#### Collisions
+
+- insert - O(1)
+- lookup - O(1) or O(n) if there is a collision
+- delete - O(1)
+- search - O(1)
+
+Hash tables are very fast for operations but have a finite size with only so many memory addresses. At some point a collision will happen where the key being hashed is already the same as one currently in use. There are different methods of collision resolution but it is usually handled in the language itself. It is only important to be aware of this because it can affect time complexity. Ex.) One resolution method is a linked list as that memory location and that gives us O(n) lookup because it knows the address, but it is dependant on how many items are stored at that address and the iteration may need to go until the last one to get the desired key to retrieve.
+
+#### Across Languages
+
+Hash tables are implemented different in different languages and have different names.
+
+Java - Map
+Python - Dictionary
+Javascript - Object
+
+In JS we also have Maps & Sets. These are forms of hash tables. Maps preserve order, whereas objects don't and can also user any type as a key whereas objects can only use strings. Set store only values and not keys and also are unique and duplicates are removed.
+
+```js
+class HashTable {
+  constructor(size) {
+    this.data = new Array(size);
+  }
+
+  _hash(key) {
+    let hash = 0;
+    for (let i = 0; i < key.length; i++) {
+      hash = (hash + key.charCodeAt(i) * i) % this.data.length;
+    }
+    return hash;
+  }
+
+  set(key, value) {
+    const address = this._hash(key);
+    if (!this.data[address]) {
+      this.data[address] = [];
+    }
+    this.data[address].push([key, value]);
+  }
+
+  get(key) {
+    const address = this._hash(key);
+    const currentBucket = this.data[address];
+
+    if (currentBucket) {
+      for (let i = 0; i < currentBucket.length; i++) {
+        if (currentBucket[i][0] === key) {
+          return currentBucket[i][1];
+        }
+      }
+    }
+    return undefined;
+  }
+
+  keys() {
+    const keyArr = [];
+    for (let i = 0; i < this.data.length; i++) {
+      if (this.data[i]) {
+        keyArr.push(this.data[i][0][0])
+      }
+    }
+    return keyArr;
+  }
+}
+
+const myHashTable = new HashTable(50);
+myHashTable.set("grapes", 10000);
+myHashTable.get("grapes");
+myHashTable.set("apples", 9);
+myHashTable.get("apples");
+
+console.log(myHashTable);
+console.log(myHashTable.keys())
+
+```
+
+####
