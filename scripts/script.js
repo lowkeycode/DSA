@@ -1,54 +1,72 @@
-class HashTable {
-  constructor(size) {
-    this.data = new Array(size);
-  }
-
-  _hash(key) {
-    let hash = 0;
-    for (let i = 0; i < key.length; i++) {
-      hash = (hash + key.charCodeAt(i) * i) % this.data.length;
-    }
-    return hash;
-  }
-
-  set(key, value) {
-    const address = this._hash(key);
-    if (!this.data[address]) {
-      this.data[address] = [];
-    }
-    this.data[address].push([key, value]);
-  }
-
-  get(key) {
-    const address = this._hash(key);
-    const currentBucket = this.data[address];
-
-    if (currentBucket) {
-      for (let i = 0; i < currentBucket.length; i++) {
-        if (currentBucket[i][0] === key) {
-          return currentBucket[i][1];
-        }
-      }
-    }
-    return undefined;
-  }
-
-  keys() {
-    const keyArr = [];
-    for (let i = 0; i < this.data.length; i++) {
-      if (this.data[i]) {
-        keyArr.push(this.data[i][0][0])
-      }
-    }
-    return keyArr;
+class Node {
+  constructor(value) {
+    this.value = value;
+    this.next = null;
   }
 }
 
-const myHashTable = new HashTable(50);
-myHashTable.set("grapes", 10000);
-myHashTable.get("grapes");
-myHashTable.set("apples", 9);
-myHashTable.get("apples");
+class LinkedList {
+  constructor(value) {
+    this.head = {
+      value,
+      next: null,
+    };
+    this.tail = this.head;
+    this.length = 1;
+  }
 
-console.log(myHashTable);
-console.log(myHashTable.keys())
+  prepend(value) {
+    const newNode = new Node(value);
+    newNode.next = this.head;
+    this.head = newNode;
+    this.length++;
+    return this;
+  }
+
+  append(value) {
+    const newNode = {
+      value,
+      next: null,
+    };
+    this.tail.next = newNode;
+    this.tail = newNode;
+    this.length++;
+    return this;
+  }
+
+  printList() {
+    const arr = [];
+    let currentNode = this.head;
+    while (currentNode.next !== null) {
+      arr.push(currentNode);
+    }
+    return arr;
+  }
+
+  insert(index, value) {
+    let currentIndex = 0;
+    let currentNode = this.head;
+    const newNode = new Node(value);
+
+    while (currentIndex < index) {
+      console.log(currentNode);
+      currentNode = currentNode.next;
+      currentIndex++;
+    }
+    
+    newNode.next = currentNode.next;
+    currentNode.next = newNode;
+    return this;
+  }
+}
+
+const linkedList = new LinkedList(10);
+
+linkedList.prepend(5);
+linkedList.prepend(16);
+linkedList.prepend(86);
+linkedList.append(15);
+
+// 86, 16, 5, 10, 15
+
+console.log(linkedList.insert(2, 33));

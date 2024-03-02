@@ -597,7 +597,7 @@ class HashTable {
     const keyArr = [];
     for (let i = 0; i < this.data.length; i++) {
       if (this.data[i]) {
-        keyArr.push(this.data[i][0][0])
+        keyArr.push(this.data[i][0][0]);
       }
     }
     return keyArr;
@@ -611,8 +611,121 @@ myHashTable.set("apples", 9);
 myHashTable.get("apples");
 
 console.log(myHashTable);
-console.log(myHashTable.keys())
+console.log(myHashTable.keys());
+```
+
+#### Challenge - First Recurring Number
+
+```js
+// My solution
+const arr1 = [2, 1, 3, 4, 8, 23, 2, 1, 24, 5, 4];
+const arr2 = [23, 12, 42, 78, 54, 24, 43, 23, 5];
+const arr3 = [1, 2, 3, 4, 5, 0, 6, 0, 8];
+
+function firstDuplicateNumber(arr) {
+  let repeatedNumber;
+  if (!arr.length) {
+    return repeatedNumber;
+  } else {
+    repeatedNumber = {};
+  }
+  for (let i = 0; i < arr.length; i++) {
+    if (repeatedNumber[arr[i]] !== undefined) {
+      return repeatedNumber[arr[i]];
+    } else {
+      repeatedNumber[arr[i]] = arr[i];
+    }
+  }
+}
+
+console.log(firstDuplicateNumber(arr1));
+console.log(firstDuplicateNumber(arr2));
+console.log(firstDuplicateNumber(arr3));
+```
+
+### Linked Lists
+
+Linked lists are collections of nodes that contain a value and a pointer to the next node. The nodes are not stored contiguously like arrays in memory. Each node is at its own memory address. Pointers are a reference to another place is memory.
+
+- prepend O(1)
+- append O(1)
+- lookup O(n)
+- insert O(n)
+- delete O(n)
+
+```js
+class Node {
+  constructor(value) {
+    this.value = value;
+    this.next = null;
+  }
+}
+
+class LinkedList {
+  constructor(value) {
+    this.head = {
+      value,
+      next: null,
+    };
+    this.tail = this.head;
+    this.length = 1;
+  }
+
+  prepend(value) {
+    const newNode = new Node(value);
+    newNode.next = this.head;
+    this.head = newNode;
+    this.length++;
+    return this;
+  }
+
+  append(value) {
+    const newNode = {
+      value,
+      next: null,
+    };
+    this.tail.next = newNode;
+    this.tail = newNode;
+    this.length++;
+    return this;
+  }
+
+  printList() {
+    const arr = [];
+    let currentNode = this.head;
+    while (currentNode.next !== null) {
+      arr.push(currentNode);
+    }
+    return arr;
+  }
+
+  insert(index, value) {
+    let currentIndex = 0;
+    let currentNode = this.head;
+    const newNode = new Node(value);
+
+    while (currentIndex < index) {
+      console.log(currentNode);
+      currentNode = currentNode.next;
+      currentIndex++;
+    }
+    
+    newNode.next = currentNode.next;
+    currentNode.next = newNode;
+    return this;
+  }
+}
+
+const linkedList = new LinkedList(10);
+
+linkedList.prepend(5);
+linkedList.prepend(16);
+linkedList.prepend(86);
+linkedList.append(15);
+
+// 86, 16, 5, 10, 15
+
+console.log(linkedList.insert(2, 33));
 
 ```
 
-####
