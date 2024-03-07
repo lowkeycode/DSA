@@ -430,7 +430,7 @@ class Arr {
 }
 
 // {
-//   "length": 3,
+//   "length": 6,
 //   "data": {
 //       "0": "hi",
 //       "1": "!!",
@@ -860,7 +860,7 @@ linkedList.printList();
 linkedList.reverseTo(0);
 ```
 
-### Doubly VS Singly Linked Lists
+#### Doubly VS Singly Linked Lists
 
 Singly:
 
@@ -890,3 +890,225 @@ Bad
 
 - Slow lookup
 - More memory
+
+### Stacks
+
+LIFO - Last in first out
+
+- lookup O(n)
+- pop O(1)
+- push O(1)
+- peek O(1)
+
+```js
+class StackArray {
+  constructor() {
+    this.length = 0;
+    this.stack = {};
+  }
+
+  peek() {
+    return console.log(this.stack[0]);
+  }
+
+  push(value) {
+    // This is unshift for an array. In the course they ended up just using the built in array methods
+    // I guess I went too far and just built unshift
+
+    let currentIndex = 0;
+    let currentItem;
+    let temp;
+
+    while (this.length > currentIndex) {
+      currentItem = this.stack[currentIndex];
+
+      if (temp) {
+        const next = this.stack[currentIndex + 1];
+        this.stack[currentIndex + 1] = temp;
+        temp = next;
+      } else {
+        temp = this.stack[currentIndex + 1];
+        this.stack[currentIndex + 1] = currentItem;
+      }
+
+      currentIndex++;
+    }
+
+    this.stack[0] = value;
+    this.length++;
+    console.log(this.stack);
+  }
+
+  pop() {
+    const item = this.stack[0];
+    for (let i = 0; i < this.length - 1; i++) {
+      this.stack[i] = this.stack[i + 1];
+    }
+    delete this.stack[this.length - 1];
+    this.length--;
+    console.log(this.stack);
+    return item;
+  }
+
+  
+}
+
+const stackArr = new StackArray();
+
+stackArr.push(5);
+stackArr.push(33);
+stackArr.push(666);
+const sure = stackArr.pop();
+
+console.log(sure)
+```
+
+```js
+class Node {
+  constructor(value) {
+    this.value = value;
+    this.next = null;
+    this.prev = null;
+  }
+}
+
+class StackLinkedList {
+  constructor() {
+    this.length = 0;
+  }
+
+  peek() {
+    if(!this.length) return undefined;
+    return console.log(this.head);
+  }
+
+  push(value){
+    const newNode = new Node(value)
+
+    if(!this.length) {
+      this.head = this.tail = newNode;
+      return this.length++;
+    };
+
+    newNode.next = this.head;
+    this.head.prev = newNode;
+    this.head = newNode;
+    this.length++;
+  }
+
+  printStack() {
+    const arr = [];
+    let currentNode = this.head;
+
+    while(currentNode !== null) {
+      arr.push(currentNode);
+      currentNode = currentNode.next;
+    }
+
+    console.log(arr);
+  }
+
+  pop() {
+    if(!this.length) return undefined;
+    const target = this.head;
+    this.head.prev = null;
+    this.head = this.head.next;
+    this.length--;
+    return console.log(target);
+  }
+}
+
+const stacky = new StackLinkedList();
+stacky.push(5);
+stacky.push(666);
+stacky.pop();
+stacky.pop();
+stacky.printStack()
+```
+
+### Queues
+
+FIFO - First in last out
+
+- lookup O(n)
+- enqueue O(1)
+- dequeue O(1)
+- peek O(1)
+
+
+```js
+function print() {
+  const arr = [];
+  let currentNode = this.head;
+
+  while (currentNode !== null) {
+    arr.push(currentNode);
+    currentNode = currentNode.next;
+  }
+
+  console.log(arr);
+}
+
+class Node {
+  constructor(value) {
+    this.value = value;
+    this.next = null;
+  }
+}
+
+class QueueLinkedList {
+  constructor() {
+    this.length = 0;
+  }
+
+  printQueue() {
+    const arr = [];
+    let currentNode = this.head;
+
+    while (currentNode !== null) {
+      arr.push(currentNode);
+      currentNode = currentNode.next;
+    }
+
+    console.log(arr);
+  }
+
+  enqueue(value) {
+    const newNode = new Node(value);
+
+    if (!this.length) {
+      this.head = this.tail = newNode;
+      return this.length++;
+    }
+
+    this.tail.next = newNode;
+    this.tail = newNode
+    this.length++;
+    this.printQueue();
+  }
+
+  dequeue() {
+    if (!this.length) return undefined;
+    const frontOfQueue = this.head;
+
+    if(this.length === 1) {
+      this.head = this. tail = null;
+      return frontOfQueue;
+    }
+
+    this.head = this.head.next;
+    return frontOfQueue;
+  }
+}
+
+const queueList = new QueueLinkedList();
+
+queueList.enqueue(5);
+queueList.enqueue(12);
+queueList.enqueue(666);
+queueList.dequeue();
+const twelve = queueList.dequeue();
+console.log(twelve)
+
+
+```
