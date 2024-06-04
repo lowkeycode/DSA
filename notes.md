@@ -112,22 +112,14 @@ With Big O we simplyfy the calculation to give more of a generalization about th
 
 ### Big O Cheat Sheet: -Big Os-
 
-O(1) Constant
-
-- no loops
-  O(log N) Logarithmic
-- usually searching algorithms have log n if they are sorted (Binary Search) O(n)
-  Linear
-- for loops, while loops through n items
-  O(n log(n)) Log Linear
-- usually sorting operations
-  O(n^2) Quadratic
-- every element in a collection needs to be compared to ever other element. Two nested loops
-  O(2^n) Exponential
-- recursive algorithms that solves a problem of size N
-  O(n!) Factorial
-- you are adding a loop for every element
-  Iterating through half a collection is still O(n) Two separate collections: O(a \* b)
+- O(1) Constant no loops
+- O(log N) Logarithmic usually searching algorithms have log n if they are sorted (Binary Search)
+- O(n)Linear for loops, while loops through n items
+- O(n log(n)) Log Linear usually sorting operations
+- O(n^2) Quadratic every element in a collection needs to be compared to ever other element. Two nested loops
+- O(2^n) Exponential recursive algorithms that solves a problem of size N
+- O(n!) Factorial you are adding a loop for every element
+- Iterating through half a collection is still O(n) Two separate collections: O(a \* b)
 
 What can cause time in a function?
 
@@ -142,8 +134,8 @@ Rule Book
 2. Remove Constants
 3. Different inputs should have different variables. O(a+b). A and B arrays nested would be O(a\*b)
 
-- - for steps in order
-- - for nested steps
+   - for steps in order
+   - for nested steps
 
 4. Drop Non-dominant terms
 
@@ -314,7 +306,7 @@ How computers store data:
 
 1. RAM
 
-- To run code computers need to keep track of variables, numbers, string, object etc. This is stored in memory orRAM (Random Access Memory)
+- To run code computers need to keep track of variables, numbers, string, object etc. This is stored in memory or RAM (Random Access Memory)
 - Temporary (Disappears when computer is shut off)
 - Fast
 - Massive storage area with addresses
@@ -940,8 +932,8 @@ class StackArray {
   }
 
   pop() {
-    const item = this.stack[0];
-    for (let i = 0; i < this.length - 1; i++) {
+    const item = this.st ack[0];
+    for (let i = 0; i <  this.length - 1; i++) {
       this.stack[i] = this.stack[i + 1];
     }
     delete this.stack[this.length - 1];
@@ -950,7 +942,7 @@ class StackArray {
     return item;
   }
 
-  
+
 }
 
 const stackArr = new StackArray();
@@ -978,17 +970,17 @@ class StackLinkedList {
   }
 
   peek() {
-    if(!this.length) return undefined;
+    if (!this.length) return undefined;
     return console.log(this.head);
   }
 
-  push(value){
-    const newNode = new Node(value)
+  push(value) {
+    const newNode = new Node(value);
 
-    if(!this.length) {
+    if (!this.length) {
       this.head = this.tail = newNode;
       return this.length++;
-    };
+    }
 
     newNode.next = this.head;
     this.head.prev = newNode;
@@ -1000,7 +992,7 @@ class StackLinkedList {
     const arr = [];
     let currentNode = this.head;
 
-    while(currentNode !== null) {
+    while (currentNode !== null) {
       arr.push(currentNode);
       currentNode = currentNode.next;
     }
@@ -1009,7 +1001,7 @@ class StackLinkedList {
   }
 
   pop() {
-    if(!this.length) return undefined;
+    if (!this.length) return undefined;
     const target = this.head;
     this.head.prev = null;
     this.head = this.head.next;
@@ -1023,7 +1015,7 @@ stacky.push(5);
 stacky.push(666);
 stacky.pop();
 stacky.pop();
-stacky.printStack()
+stacky.printStack();
 ```
 
 ### Queues
@@ -1034,7 +1026,6 @@ FIFO - First in last out
 - enqueue O(1)
 - dequeue O(1)
 - peek O(1)
-
 
 ```js
 function print() {
@@ -1082,7 +1073,7 @@ class QueueLinkedList {
     }
 
     this.tail.next = newNode;
-    this.tail = newNode
+    this.tail = newNode;
     this.length++;
     this.printQueue();
   }
@@ -1091,8 +1082,8 @@ class QueueLinkedList {
     if (!this.length) return undefined;
     const frontOfQueue = this.head;
 
-    if(this.length === 1) {
-      this.head = this. tail = null;
+    if (this.length === 1) {
+      this.head = this.tail = null;
       return frontOfQueue;
     }
 
@@ -1108,7 +1099,33 @@ queueList.enqueue(12);
 queueList.enqueue(666);
 queueList.dequeue();
 const twelve = queueList.dequeue();
-console.log(twelve)
-
-
+console.log(twelve);
 ```
+
+### Trees
+
+Trees have a hierarchical structure with nodes
+
+- Root (Only entry point)
+- Parent
+- Child
+- Siblings
+- Leaves (last item in a branch)
+- Sub-trees (Sections of smaller trees withing the larger tree)
+- Nodes can only reference children
+
+#### Binary Tree
+
+- Each node can only have 0, 1 or 2 nodes
+- Each child can only have 1 parent
+
+Some terminology:
+
+Perfect Binary Tree
+- All nodes have 2 children
+- Nodes never have just 1 child
+- Number of total nodes on each level doubles as you move down the tree
+- The sum of the nodes on the very last level is equal to the sum of all the other nodes + 1 (This means that half of the nodes are above the last level and we can make more efficient decisions based on this)
+
+Full Binary Tree (sometimes referred to as a proper, plane, or strict binary tree)
+- Just a binary tree with any nodes having 0,1 or 2 nodes
