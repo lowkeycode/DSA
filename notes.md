@@ -1129,3 +1129,167 @@ Perfect Binary Tree
 
 Full Binary Tree (sometimes referred to as a proper, plane, or strict binary tree)
 - Just a binary tree with any nodes having 0,1 or 2 nodes
+
+#### O(log n)
+
+We can calculate how many nodes a PERFECT binary tree has as we know each level doubles the amount of nodes from the previous level.
+
+Level 0: 2^0 = 1
+Level 1: 2^1 = 2
+Level 2: 2^2 = 4
+Level 3: 2^3 = 8
+Level 4: 2^4 = 16
+
+Based on this we can find out the number of nodes in a tree by doing 2^h - 1. h being height.
+
+log of nodes = height
+Ex.) log of 100 = 2 because 10^2 = 100
+
+O(log n) is better than O(n) because you dont need to go through every item/node. It is like searching through a phone book. You split it open and discard the half you don't need and search the other half.
+
+#### Binary Search Tree (BST)
+
+lookup (O log n)
+insert (O log n)
+delete (O log n)
+
+Rules: 
+- All child nodes to the right of the root node must be greater than the current ndoe
+- Node can only have up to 2 children
+
+Good
+- Lookup
+- Better than O(n)
+- Ordered
+- Flexible Size (Essentially a type of linked list)
+
+Bad
+- No O(1) Operations
+
+
+#### Balanced vs Unbalanced Binary Search Trees
+
+If nodes are added that are sequential, then we just end up with a linked list with no real other branches and then we're just looping through every single node.
+
+This is why unbalanced trees are bad for performance. Because they become O(n).
+
+There are algorithms to balance unbalanced trees but they are fairly advanced and time consuming. Its more important to know why you would need to or be able to talk about it.
+
+Summary: They can be great in their given use cases as long as you keep them balanced
+
+
+#### Exercise - Code a BST without being told how
+
+<!-- Couldn't do it. I had misconceptions about how BSTs work. I thought they were ordered, but this isn't true. See the commented tree below.  -->
+
+```js
+class BstNode {
+  constructor(value) {
+    this.value = value;
+    this.left = null;
+    this.right = null;
+  }
+}
+
+class BinarySearchTree {
+  constructor() {
+    this.root = null;
+  }
+
+  insert(value) {
+    const newNode = new BstNode(value);
+    if (!this.root) {
+      this.root = newNode;
+      console.log(this.root);
+      return;
+    } 
+    let currentNode = this.root;
+
+    while (true) {
+      if (newNode.value < currentNode.value) {
+        if (!currentNode.left) {
+          console.log(this.root);
+          currentNode.left = newNode;
+          break;
+        }
+        currentNode = currentNode.left;
+      } else {
+        if (!currentNode.right) {
+          currentNode.right = newNode;
+          console.log(this.root);
+          break;
+        }
+        currentNode = currentNode.right;
+      }
+    }
+
+  }
+
+  lookup(value) {
+    if (!this.root) return undefined;
+
+    let currentNode = this.root;
+
+    while (currentNode) {
+      if (value < currentNode.value) {
+        currentNode = currentNode.left;
+      } else if (value > currentNode.value) {
+        currentNode = currentNode.right;
+      } else {
+        console.log(currentNode);
+        return currentNode;
+      }
+    }
+    return undefined
+  }
+
+  remove(value) {
+    // This is very complicated and wont be doing
+  }
+}
+
+const bst = new BinarySearchTree();
+
+bst.insert(5);
+bst.insert(50);
+bst.insert(55);
+bst.insert(25);
+bst.insert(13);
+bst.insert(3);
+bst.insert(4);
+bst.insert(2);
+
+//          5
+//       3     50
+//     2  4   25 55
+//           13
+
+bst.lookup(13)
+bst.lookup(50)
+```
+
+#### AVL Trees & Red/Black Trees
+
+- These are more likely used in production as these will auto-balance themselves and prevent linked lists
+
+#### Binary Heaps
+
+MEMORY HEAPS !== HEAP DATA STRUCTURES
+
+There are max heaps and min heaps where the root node is either the highest or lowest value accordingly. Subsequent nodes follow the same ordering. Ex.) Min heaps each child node increases in value (Max heaps decrease)
+
+- No meaning between left and right as long as they are less or more than the root value (Min/Max Heap)
+- Left to right insertion (Insertion always starts at left and goes to right regardless of value, then bubbling occurs - see next point)
+- Once inserted if value is greater/less the inserted value will bubble up to adhere to the type of heap
+- lookup O(n)
+- insert O(log n)
+- delete O(log n)
+- Great for comparative operations
+- Priority (Are priority queues)
+
+#### Tries
+
+They are trees especially used for string sequences. The root node is blank and all child nodes includes possible sequences. They are like autocomplete. Ex.) The letter "a" might have the letter "n" and "p" attached causing 2 branches that could result in "a-nswer" of "a-pple". Also known as prefix trees
+
+- Time complexity of O(length of word)
+
