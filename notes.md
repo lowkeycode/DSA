@@ -1244,7 +1244,82 @@ class BinarySearchTree {
   }
 
   remove(value) {
-    // This is very complicated and wont be doing
+    // I didn't code this
+
+    if (!this.root) {
+      return false;
+    }
+    let currentNode = this.root;
+    let parentNode = null;
+    while (currentNode) {
+      if (value < currentNode.value) {
+        parentNode = currentNode;
+        currentNode = currentNode.left;
+      } else if (value > currentNode.value) {
+        parentNode = currentNode;
+        currentNode = currentNode.right;
+      } else if (currentNode.value === value) {
+        //We have a match, get to work!
+
+        //Option 1: No right child:
+        if (currentNode.right === null) {
+          if (parentNode === null) {
+            this.root = currentNode.left;
+          } else {
+            //if parent > current value, make current left child a child of parent
+            if (currentNode.value < parentNode.value) {
+              parentNode.left = currentNode.left;
+
+              //if parent < current value, make left child a right child of parent
+            } else if (currentNode.value > parentNode.value) {
+              parentNode.right = currentNode.left;
+            }
+          }
+
+          //Option 2: Right child which doesnt have a left child
+        } else if (currentNode.right.left === null) {
+          currentNode.right.left = currentNode.left;
+          if (parentNode === null) {
+            this.root = currentNode.right;
+          } else {
+            //if parent > current, make right child of the left the parent
+            if (currentNode.value < parentNode.value) {
+              parentNode.left = currentNode.right;
+
+              //if parent < current, make right child a right child of the parent
+            } else if (currentNode.value > parentNode.value) {
+              parentNode.right = currentNode.right;
+            }
+          }
+
+          //Option 3: Right child that has a left child
+        } else {
+          //find the Right child's left most child
+          let leftmost = currentNode.right.left;
+          let leftmostParent = currentNode.right;
+          while (leftmost.left !== null) {
+            leftmostParent = leftmost;
+            leftmost = leftmost.left;
+          }
+
+          //Parent's left subtree is now leftmost's right subtree
+          leftmostParent.left = leftmost.right;
+          leftmost.left = currentNode.left;
+          leftmost.right = currentNode.right;
+
+          if (parentNode === null) {
+            this.root = leftmost;
+          } else {
+            if (currentNode.value < parentNode.value) {
+              parentNode.left = leftmost;
+            } else if (currentNode.value > parentNode.value) {
+              parentNode.right = leftmost;
+            }
+          }
+        }
+        return true;
+      }
+    }
   }
 }
 
@@ -1293,3 +1368,58 @@ They are trees especially used for string sequences. The root node is blank and 
 
 - Time complexity of O(length of word)
 
+### Graphs
+
+- Set of values related in a pairwise fashion
+- Each item is a node (or vertex)
+- Nodes are connected with EDGES
+- Great for modelling real world relationships
+
+#### Types Of Graphs
+
+1. Directed
+- One Way
+2. Undirected
+- Traversal in any direction
+3. Weighted
+- Edges can also hold information
+4. Unweighted
+- Edges don't hold information
+5. Cyclic
+- Vertices connected in a circular fashion
+6. Acyclic
+- No closed connection
+
+#### Graphing Data
+
+3 Ways to think of building a graph:
+1. Edge List
+- List the different connections
+- Weighted edge list would list each connection in a hashtable and each connection as an index. Ex.) node 5 connect to node 1 and 2. Index 0 would be `[0, 1, 99]` with `99` being the edge. Index 1 would be `[0, 2, 50]`
+
+```js
+const edgeListGraph = [[0, 2], [2, 1], [2, 3], [1,3]];
+```
+
+2. Adjacent List
+- Index is the node
+- Value is the nodes neighbours
+- Weighted graph would hold the value as 2 values to include the neighbor node and the edge
+```js
+const adjacentListGraph = [[2], [2, 3], [0, 1, 3], [1, 2]];
+```
+
+3. Adjacent Matrix
+- Index is the node (holdas an array of connections)
+- Node array displays a connection to its neighbours by its indexes
+- 0s and 1s indicating if node X has a connection to node Y
+- Can also represent with objects with node index as the key
+- Weighted graphs would use whatever data required as edges in place of 0s and 1s as below
+```js
+const adjacentListGraph = [
+  [0, 0, 1, 0],
+  [0, 0, 1, 1],
+  [1, 1, 0, 1],
+  [0, 1, 1, 0]
+];
+```
