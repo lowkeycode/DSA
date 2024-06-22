@@ -1395,7 +1395,7 @@ They are trees especially used for string sequences. The root node is blank and 
 3 Ways to think of building a graph:
 1. Edge List
 - List the different connections
-- Weighted edge list would list each connection in a hashtable and each connection as an index. Ex.) node 5 connect to node 1 and 2. Index 0 would be `[0, 1, 99]` with `99` being the edge. Index 1 would be `[0, 2, 50]`
+- Weighted edge list would list each connection in a hashtable and each connection as an index. Ex.) node 5 connects to node 1 and 2. Index 0 would be `[5, 1, 99]` with `99` being the edge. Index 1 would be `[5, 2, 50]`
 
 ```js
 const edgeListGraph = [[0, 2], [2, 1], [2, 3], [1,3]];
@@ -1404,9 +1404,11 @@ const edgeListGraph = [[0, 2], [2, 1], [2, 3], [1,3]];
 2. Adjacent List
 - Index is the node
 - Value is the nodes neighbours
-- Weighted graph would hold the value as 2 values to include the neighbor node and the edge
+- Weighted graph would hold the value as 2 values to include the neighbor node and the edge 
 ```js
 const adjacentListGraph = [[2], [2, 3], [0, 1, 3], [1, 2]];
+
+const weighted = [[[2, 6]], [[2, 15],[3, 25]], [[0, 6],[1, 15],[3, 50]], [[1, 25], [2, 50]]];
 ```
 
 3. Adjacent Matrix
@@ -1423,3 +1425,69 @@ const adjacentListGraph = [
   [0, 1, 1, 0]
 ];
 ```
+
+
+**Adjacent Graph - My Solution**
+
+```js
+class AdjacentGraph {
+  constructor() {
+    this.numNodes = 0;
+    this.adjacentList = {}
+  }
+
+  /**
+   * 
+   * @param {number} node 
+   */
+  addVertex(node) {
+    if (this.adjacentList[node]) return;
+
+    this.adjacentList[node] = [];
+    this.numNodes++;
+    this.showConnections(); 
+  }
+
+  /**
+   * 
+   * @param {number} node1 
+   * @param {number} node2 
+   */
+  addEdge(node1, node2) {
+    if (!this.adjacentList[node1] || !this.adjacentList[node2]) return;
+
+    if (this.adjacentList[node1].includes(node2)) return;
+
+    this.adjacentList[node1] = [...this.adjacentList[node1], node2].sort((a, b) => a > b);
+
+    this.adjacentList[node2] = [...this.adjacentList[node2], node1].sort((a, b) => a > b);
+
+    this.showConnections();
+  }
+
+  showConnections() {
+    console.log(this.adjacentList);
+  }
+}
+
+const adjacentGraph = new AdjacentGraph();
+
+
+adjacentGraph.addVertex(5);
+adjacentGraph.addVertex(20);
+adjacentGraph.addVertex(66);
+adjacentGraph.addVertex(32);
+adjacentGraph.addVertex(78);
+
+adjacentGraph.addEdge(5, 20);
+adjacentGraph.addEdge(20, 66);
+adjacentGraph.addEdge(66, 32);
+adjacentGraph.addEdge(32, 78);
+adjacentGraph.addEdge(78, 20);
+```
+
+Pros
+- Great for relationships
+
+Cons
+- Hard to scale
