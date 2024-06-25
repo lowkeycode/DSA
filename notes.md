@@ -1491,3 +1491,38 @@ Pros
 
 Cons
 - Hard to scale
+
+## Algorithms
+
+### Recursion
+
+#### Intro
+
+- Functions that call themselves repeatedly until a condition is met
+- Recursive functions need an exit condition or will result in stack overflow
+- The base case needs to return to the top level if we need a value from the function, so we `return` the calling of the function itself from within the function. Just calling it will not suffice and will return `undefined` otherwise
+
+1. Identify the base case
+2. Identify the recursive case
+3. Usually 2 returns, one for base case and one to recursively call that function to bubble the value
+
+
+#### Recursion vs Iteration (Loops)
+
+- Both have time complexity of 0(n)
+- Better readability
+- Larger stack sizes in memory
+
+***NOTE***
+- In ES6 and many languages there is something called Tail Call Optimization to write memory efficient recursion that allows recursive functions without increasing the callstack (not covered in this course)
+
+##### When to use recursion?
+
+This isn't very clearly stated in the course as to why recursion is better than loops, but from doing some reading the following listed statements from the course apparently do hold true. In some instances implementing complex traversals or building parsers you'll run into edge cases with loops that recursion handles a lot more gracefully. And loops you often need to implement your own stack to keep track of things. I have no idea where this happens or when???
+
+Anytime using a tree or converting something to a tree, consider recursion
+
+3 main situations: 
+- A problem can be divided into sub problems that are instances of the same problem
+- Each instance of sub problem is identical in nature
+- The solutions of each sub problem can be combined to solve the over arching problem
