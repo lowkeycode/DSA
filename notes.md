@@ -484,7 +484,7 @@ console.log(check2);
 
 Sorting Arrays
 
-My attempt. I believe this is bubble sort.
+My attempt. I believe this is bubble sort. (Later follow up - this isn't bubble sort and is incorrect)
 
 ```js
 const arr1 = [12, 355, 26, 13];
@@ -1526,3 +1526,68 @@ Anytime using a tree or converting something to a tree, consider recursion
 - A problem can be divided into sub problems that are instances of the same problem
 - Each instance of sub problem is identical in nature
 - The solutions of each sub problem can be combined to solve the over arching problem
+
+### Sorting
+
+Most data is sorted or "preprocessed" because sorted data is more efficient to work with and saves time and money. But many times you need to sort data by custom categories.
+
+#### Bubble Sort
+
+Bubble sort loops over each item in the array and compares it with the next number and swaps if required. If the swap isnt required the loop continues so multiple numbers on an iteration of a loop can "bubble" up and move up in the same loop.
+
+Time Complexity
+- O^2
+
+Space Complexity
+- O(1)
+
+
+```js
+const arr1 = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0];
+
+function bubbleSort(array) {
+  for (let i = 0; i < array.length; i++) {
+    for (let j = 0; j < array.length; j++) {
+      if(array[j] > array[j + 1]) {
+        let temp = array[j];
+        array[j] = array[j + 1];
+        array[j + 1] = temp;
+      }
+    }
+  }
+}
+
+bubbleSort(arr1);
+
+console.log(arr1);
+```
+
+#### Selection Sort
+
+```js
+const numbers = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0];
+
+function selectionSort(array) {
+    for (let i = 0; i < array.length; i++) {
+
+      // Track by index otherwise we wont know where to swap from
+      let min = i;
+      // But well also need the value
+      let temp = array[i];
+
+      for(let j = i + 1; j < array.length; j++) {
+        if (array[j] < array[min]) {
+          min = j;
+        }
+      }
+
+      // Swap the lowest value to the next sorted position at beginning or array
+      array[i] = array[min];
+      array[min] = temp;
+    }
+}
+
+selectionSort(numbers);
+
+console.log(numbers);
+```
